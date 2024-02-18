@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  create-user-backend:
+    container_name: "create-user_backend"
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    image: "create-user-app_backend:0.0.1"
+    ports:
+      - "3000:3000"
+    networks:
+      - create-user-network
+    depends_on:
+      - mysql-db
+      
+  mysql-db:
+    container_name: "create-user_bdd"
+    build:
+      context: .
+      dockerfile: Dockerfile.bdd
+    image: "create-user-app_bdd:0.0.1"
+    ports:
+      - "3306:3306"
+    networks:
+      - create-user-network
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: rdv
+      MYSQL_USER: student
+      MYSQL_PASSWORD: student
+
+networks:
+  create-user-network:
+    driver: bridge
+
+
+    
