@@ -69,7 +69,7 @@ jobs:
           # # Commit changes
           git add docker-compose.yml
           git commit -m "Bump version in docker-compose.yml to $(node -p "require('./package.json').version")"
-
+          git push origin main
 
           git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
           git push origin "APP_v$(node -p "require('./package.json').version")"
