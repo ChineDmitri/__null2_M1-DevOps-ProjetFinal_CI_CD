@@ -6,14 +6,10 @@ on:
       - "main"
     types: [closed]
    
-permissions:
-  contents: write 
 
 jobs:
   version-bump:
     runs-on: ubuntu-22.04
-    permissions:
-      actions: write
 
     steps:
       - name: Checkout repository
@@ -80,7 +76,7 @@ jobs:
           git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
           git push origin "BACK-END_v$(node -p "require('./package.json').version")"
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       # - name: Push changes
       #   uses: ad-m/github-push-action@v0.7.0
