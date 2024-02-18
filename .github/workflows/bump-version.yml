@@ -35,9 +35,7 @@ jobs:
           fi
 
       - name: Install dependencies
-        run: | 
-          cd create-user_backend
-          npm install
+        run: npm install
 
       - name: Determine version bump
         id: version
