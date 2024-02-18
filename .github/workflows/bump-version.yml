@@ -60,15 +60,15 @@ jobs:
 
           # Run npm version after ensuring a clean working directory
           npm version ${{ env.bump }}
+          git push origin main
 
           # # Update Docker image version in docker-compose
           # sed -i "s|image: \"rdv-app_backend:.*|image: \"rdv-app_backend:$(node -p "require('./package.json').version")\"|" docker-compose.yml
 
           # # Commit changes
           # git add package.json docker-compose.yml
-          git commit -m "Bump version to $(node -p "require('./package.json').version")"
+          # git commit -m "Bump version to $(node -p "require('./package.json').version")"
 
-          # git push origin main
 
           # git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
           # git push origin "BACK-END_v$(node -p "require('./package.json').version")"
