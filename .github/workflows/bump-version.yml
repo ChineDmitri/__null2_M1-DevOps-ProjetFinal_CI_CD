@@ -59,6 +59,7 @@ jobs:
 
           git fetch origin main
           git checkout main
+          git merge origin/main
 
           # Run npm version after ensuring a clean working directory
           npm version ${{ env.bump }}
