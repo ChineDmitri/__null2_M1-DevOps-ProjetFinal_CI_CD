@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -62,7 +64,7 @@ jobs:
           # Run npm version after ensuring a clean working directory
           npm version ${{ env.bump }}
 
-          git push origin main
+          # git push origin main
 
           # Update Docker image version in docker-compose
           sed -i "s|image: \"rdv-app_backend:.*|image: \"rdv-app_backend:$(node -p "require('./package.json').version")\"|" docker-compose.yml
@@ -74,9 +76,9 @@ jobs:
           git push origin main
 
           git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
-          git push origin "BACK-END_v$(node -p "require('./package.json').version")"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          git push origin "APP_v$(node -p "require('./package.json').version")"
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       # - name: Push changes
       #   uses: ad-m/github-push-action@v0.7.0
