@@ -64,10 +64,11 @@ jobs:
 
           # # Update Docker image version in docker-compose
           sed -i "s|image: \"rdv-app_backend:.*|image: \"rdv-app_backend:$(node -p "require('./package.json').version")\"|" docker-compose.yml
+          cat docker-compose.yml
 
           # # Commit changes
-          git add docker-compose.yml
-          git commit -m "Bump version in docker-compose.yml to $(node -p "require('./package.json').version")"
+          # git add docker-compose.yml
+          # git commit -m "Bump version in docker-compose.yml to $(node -p "require('./package.json').version")"
 
 
           # git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
