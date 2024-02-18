@@ -57,6 +57,7 @@ jobs:
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
 
+          git fetch origin main
           git checkout main
 
           # Run npm version after ensuring a clean working directory
@@ -71,7 +72,7 @@ jobs:
 
           git push origin main
 
-          git tag -a "BACK-END_v$(node -p "require('./package.json').version")" -m "Back-end version $(node -p "require('./package.json').version")"
+          git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
           git push origin "BACK-END_v$(node -p "require('./package.json').version")"
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
