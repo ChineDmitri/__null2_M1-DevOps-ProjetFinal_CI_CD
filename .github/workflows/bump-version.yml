@@ -13,10 +13,7 @@ jobs:
   version-bump:
     runs-on: ubuntu-22.04
     permissions:
-      id-token: write
-      contents: read
-      actions: read
-      pull-requests: write
+      actions: write
 
     steps:
       - name: Checkout repository
