@@ -57,29 +57,29 @@ jobs:
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
-      
-          # Ensure we're on the main branch
+
+          git fetch origin main
           git checkout main
-      
+
           # Pull the latest changes from the remote main branch
           git pull origin main
-      
+
           # Run npm version after ensuring a clean working directory
           npm version ${{ env.bump }}
-      
+
+          git push origin main
+
           # Update Docker image version in docker-compose
           sed -i "s|image: \"rdv-app_backend:.*|image: \"rdv-app_backend:$(node -p "require('./package.json').version")\"|" docker-compose.yml
-      
+
           # Commit changes
           git add package.json docker-compose.yml
           git commit -m "Bump version to $(node -p "require('./package.json').version")"
-      
-          # Push changes to the remote repository
+
           git push origin main
-      
-          # Create and push the tag
+
           git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
-          git push origin "APP_v$(node -p "require('./package.json').version")"
+          git push origin "BACK-END_v$(node -p "require('./package.json').version")"
 
       # - name: Update Docker Image Version
       #   run: |
