@@ -66,6 +66,8 @@ jobs:
           # Run npm version after ensuring a clean working directory
           npm version ${{ env.bump }}
 
+          git push origin main
+
           # Update Docker image version in docker-compose
           sed -i "s|image: \"rdv-app_backend:.*|image: \"rdv-app_backend:$(node -p "require('./package.json').version")\"|" docker-compose.yml
 
