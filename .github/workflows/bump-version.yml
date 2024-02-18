@@ -59,7 +59,7 @@ jobs:
           git config --global user.name "GitHub Actions"
 
           # Run npm version after ensuring a clean working directory
-          npm version ${{ env.bump }}
+          npm version ${{ env.bump }} -m "Bump version in package.json %s"
           git push origin main
 
           # # Update Docker image version in docker-compose
