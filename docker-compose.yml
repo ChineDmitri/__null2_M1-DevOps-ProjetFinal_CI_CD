@@ -1,12 +1,12 @@
 version: '3'
 
 services:
-  create-user-backend:
-    container_name: "create-user_backend"
+  node-js-app:
+    container_name: "create-user_app"
     build:
       context: .
       dockerfile: Dockerfile.backend
-    image: "create-user-app_backend:0.0.10"
+    image: "create-user-app:0.0.10"
     ports:
       - "3000:3000"
     networks:
@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.bdd
-    image: "create-user-app_bdd:0.0.1"
+    image: "create-user_bdd:0.0.1"
     ports:
       - "3306:3306"
     networks:
