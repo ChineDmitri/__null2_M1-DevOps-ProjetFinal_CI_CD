@@ -1,3 +1,8 @@
+
+ng build --configuration=production --output-path=../volumes
+npm install --save @nestjs/serve-static --legacy-peer-deps
+
+
 #### Création d'un image pour dev local : 
 
 ```bash
