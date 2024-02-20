@@ -21,7 +21,7 @@ jobs:
           node-version: 18.16
 
       - name: Install dependencies and lint code
-        run: |
+        run: 
           cd PIF_PAF-front
           pwd
           npm install
