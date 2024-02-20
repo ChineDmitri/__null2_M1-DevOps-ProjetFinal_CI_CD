@@ -111,6 +111,19 @@ jobs:
           git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
           git push origin "APP_v$(node -p "require('./package.json').version")"
 
+      - name: Bump version and update Docker image
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+          cd PIF_PAF-front
+          ng build --configuration=production --output-path=../volume
+
+          pwd
+          git add .
+          git commit -m "Build volumes"
+          git push origin main
+
       # - name: Update Docker Image Version
       #   run: |
       #     sed -i "s|image: \"rdv-app_backend:.*|image: \"rdv-app_backend:$(node -p "require('./package.json').version")\"|" docker-compose.yml
