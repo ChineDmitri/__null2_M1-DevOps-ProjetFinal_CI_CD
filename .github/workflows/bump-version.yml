@@ -119,7 +119,7 @@ jobs:
 
           cd PIF_PAF-front
           npm install ./PIF_PAF-front
-          ng build --configuration=production --output-path=../volume
+          npx ng build --configuration=production --output-path=../volume
 
           pwd
           git add .
