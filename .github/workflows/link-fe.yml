@@ -23,11 +23,13 @@ jobs:
       - name: Install dependencies
         run: |
           cd PIF_PAF-front
-          npm install
+          pwd
+          npm install 
 
       - name: Run Lint 
         run: |
           cd PIF_PAF-front
+          pwd
           npm run lint
       
       
