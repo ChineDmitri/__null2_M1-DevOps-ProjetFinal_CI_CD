@@ -7,6 +7,11 @@ on:
       - "fe_feature_*"
       - "fe_release_*"
     types: [closed]
+  push:
+    branches:
+      - "fe_fix_*"
+      - "fe_feature_*"
+      - "fe_release_*"
 
 jobs:
   lint-code:
