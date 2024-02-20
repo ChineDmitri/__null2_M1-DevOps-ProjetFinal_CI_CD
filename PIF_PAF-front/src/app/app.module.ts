@@ -23,7 +23,6 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     MatInputModule,
     MatButtonModule,
-
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,13 +1,11 @@
 name: Test and Coverage
 
 on:
-  pull_request:
+  push:
     branches:
       - 'be_fix_*'
       - 'be_feature_*'
-      - 'be_release_*'
-    types: [closed]
-  
+      - 'be_release_*'  
 
 jobs:
   back-end_test-and-coverage:
@@ -30,16 +28,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Check if pull request was merged
-        run: |
-          if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
-            echo "Pull request was merged, go to bump version."
-            exit 0
-          else
-            echo "Pull request was not merged, no bump version."
-            exit 1
-          fi
 
       - name: Set up Node.js
         uses: actions/setup-node@v3

@@ -79,11 +79,11 @@ jobs:
         id: version
         run: |
           BRANCH_NAME=$(echo ${{ github.head_ref }} | tr '[:upper:]' '[:lower:]')
-          if [[ $BRANCH_NAME == "be_fix_"* ]]; then
+          if [[ $BRANCH_NAME == "fix_"* ]]; then
             echo "bump=patch" >> $GITHUB_ENV
-          elif [[ $BRANCH_NAME == "be_feature_"* ]]; then
+          elif [[ $BRANCH_NAME == "feature_"* ]]; then
             echo "bump=minor" >> $GITHUB_ENV
-          elif [[ $BRANCH_NAME == "be_release_"* ]]; then
+          elif [[ $BRANCH_NAME == "release_"* ]]; then
             echo "bump=major" >> $GITHUB_ENV
           else
             echo "Unsupported branch naming convention: $BRANCH_NAME"
@@ -110,6 +110,19 @@ jobs:
 
           git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
           git push origin "APP_v$(node -p "require('./package.json').version")"
+
+      - name: Bump version and update Docker image
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+          cd PIF_PAF-front
+          ng build --configuration=production --output-path=../volume
+
+          pwd
+          git add .
+          git commit -m "Build volumes"
+          git push origin main
 
       # - name: Update Docker Image Version
       #   run: |

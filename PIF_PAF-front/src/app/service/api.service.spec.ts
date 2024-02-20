@@ -1,5 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { ApiService } from './api.service';
 
 fdescribe('ApiService', () => {
@@ -9,13 +12,13 @@ fdescribe('ApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ApiService]
+      providers: [ApiService],
     });
     service = TestBed.inject(ApiService);
     httpMock = TestBed.inject(HttpTestingController);
   });
-  
-  afterEach(()=>{
+
+  afterEach(() => {
     httpMock.verify();
   });
 
@@ -24,7 +27,7 @@ fdescribe('ApiService', () => {
   });
 
   it('should return message if response has message', () => {
-    const mockResponse = {message: 'Success'};
+    const mockResponse = { message: 'Success' };
     const lastName = 'Louis';
     const firstName = 'Jean';
 
