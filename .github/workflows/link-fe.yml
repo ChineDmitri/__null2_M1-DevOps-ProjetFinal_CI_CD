@@ -1,12 +1,11 @@
 name: Lint for front
 
 on:
-  pull_request:
+  push:
     branches:
       - "fe_fix_*"
       - "fe_feature_*"
       - "fe_release_*"
-    types: [closed]
 
 jobs:
   lint-code:
@@ -34,11 +33,12 @@ jobs:
       - name: Install dependencies
         run: |
           cd PIF_PAF-front
+          pwd
           npm install
 
       - name: Run Lint 
         run: |
-          cd PIF_PAF-front
+          pwd
           npm run lint
       
       
