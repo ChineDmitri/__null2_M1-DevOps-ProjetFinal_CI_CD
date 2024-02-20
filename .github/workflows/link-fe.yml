@@ -21,16 +21,12 @@ jobs:
           node-version: 18.16
 
       - name: Install dependencies and lint code
-        run: cd PIF_PAF-front
-
-      - name: run 2
-        run: pwd
-      
-      - name: run 3
         run: npm install
-        
-      - name: run 4
-        run: npm run lint 
+        working-directory: PIF_PAF-front
+      
+      - name: Run lint
+        run: npm run lint
+        working-directory: PIF_PAF-front
           
 
       # - name: Run Lint 
