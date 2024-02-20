@@ -11,10 +11,9 @@ async function bootstrap() {
   console.log(process.env.MYSQL_DB_PORT_PROD);
   const app = await NestFactory.create(AppModule);
 
-  const staticPath = path.join(__dirname, '../volume/browser/');
+  const staticPath = path.join(__dirname, '../../volume/browser/');
 
   console.log(staticPath);
-  // Добавьте middleware для обслуживания статических файлов
   app.use('/', express.static(staticPath));
 
   await app.listen(3000);

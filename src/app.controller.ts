@@ -1,19 +1,22 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import * as express from 'express';
+import * as path from 'path';
+import serveStatic from 'serve-static';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('/info')
-  getHello(): string {
-    console.log('b');
-    return this.appService.getHello();
+  getVersion(): string {
+    return this.appService.getVersion();
   }
 
   // @Get()
   // getStatic(): any {
-  //   const staticPath = path.join(__dirname, '../volume/browser/');
+  //   const staticPath = path.join(__dirname, '../../volume/browser/');
+  //   console.log(path);
   //   console.log(staticPath);
   //   serveStatic(staticPath);
   // }

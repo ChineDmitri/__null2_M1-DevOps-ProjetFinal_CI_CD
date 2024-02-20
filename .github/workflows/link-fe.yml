@@ -1,0 +1,45 @@
+name: Lint for front
+
+on:
+  pull_request:
+    branches:
+      - "fe_fix_*"
+      - "fe_feature_*"
+      - "fe_release_*"
+    types: [closed]
+
+jobs:
+  lint-code:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if pull request was merged
+        run: |
+          if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
+            echo "Pull request was merged, go to bump version."
+            exit 0
+          else
+            echo "Pull request was not merged, no bump version."
+            exit 1
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.16
+
+      - name: Install dependencies
+        run: |
+          cd PIF_PAF-front
+          npm install
+
+      - name: Run Lint 
+        run: |
+          cd PIF_PAF-front
+          npm run lint
+      
+      
+    
