@@ -30,7 +30,7 @@ jobs:
         run: |
           cd PIF_PAF-front
           pwd
-          npm run lint --prefix .
+          npm run lint --prefix PIF_PAF-front
       
       
     
