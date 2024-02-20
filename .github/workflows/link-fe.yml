@@ -15,16 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check if pull request was merged
-        run: |
-          if [ "${{ github.event.pull_request.merged }}" == "true" ]; then
-            echo "Pull request was merged, go to bump version."
-            exit 0
-          else
-            echo "Pull request was not merged, no bump version."
-            exit 1
-          fi
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
