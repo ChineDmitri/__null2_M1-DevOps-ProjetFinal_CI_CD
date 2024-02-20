@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
-    image: "create-user-app:0.0.12"
+    image: "create-user-app:0.0.13"
     ports:
       - "3000:3000"
     networks:
