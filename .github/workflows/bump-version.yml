@@ -111,12 +111,14 @@ jobs:
           git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
           git push origin "APP_v$(node -p "require('./package.json').version")"
 
-      - name: Bump version and update Docker image
+      - name: Build volumes
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
 
+
           cd PIF_PAF-front
+          npm install
           ng build --configuration=production --output-path=../volume
 
           pwd
