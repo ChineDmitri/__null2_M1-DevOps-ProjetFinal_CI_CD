@@ -17,7 +17,7 @@ export class ApiService {
   // Tentative lint 5
 
   envoyerInfo(lastname: string, firstname: string): any {
-    console.log("a");
+    //console.log("a");
     return this._http.post(this._apiUrl,
       { "firstName": firstname, "lastName": lastname }
     ).pipe(
