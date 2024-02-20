@@ -79,11 +79,11 @@ jobs:
         id: version
         run: |
           BRANCH_NAME=$(echo ${{ github.head_ref }} | tr '[:upper:]' '[:lower:]')
-          if [[ $BRANCH_NAME == "be_fix_"* ]]; then
+          if [[ $BRANCH_NAME == "fix_"* ]]; then
             echo "bump=patch" >> $GITHUB_ENV
-          elif [[ $BRANCH_NAME == "be_feature_"* ]]; then
+          elif [[ $BRANCH_NAME == "feature_"* ]]; then
             echo "bump=minor" >> $GITHUB_ENV
-          elif [[ $BRANCH_NAME == "be_release_"* ]]; then
+          elif [[ $BRANCH_NAME == "release_"* ]]; then
             echo "bump=major" >> $GITHUB_ENV
           else
             echo "Unsupported branch naming convention: $BRANCH_NAME"
