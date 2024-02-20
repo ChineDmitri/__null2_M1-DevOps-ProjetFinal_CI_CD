@@ -28,6 +28,7 @@ jobs:
 
       - name: Run Lint 
         run: |
+          cd PIF_PAF-front
           pwd
           npm run lint
       
