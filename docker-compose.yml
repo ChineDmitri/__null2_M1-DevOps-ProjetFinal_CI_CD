@@ -13,6 +13,8 @@ services:
       - create-user-network
     depends_on:
       - mysql-db
+    volumes:
+      - /volume/browser:/volume/browser
       
   mysql-db:
     container_name: "create-user_bdd"
@@ -20,8 +22,8 @@ services:
       context: .
       dockerfile: Dockerfile.bdd
     image: "create-user_bdd:0.0.1"
-    ports:
-      - "3306:3306"
+    expose:
+      - "3306"
     networks:
       - create-user-network
     environment:
