@@ -20,16 +20,18 @@ jobs:
         with:
           node-version: 18.16
 
-      - name: Install dependencies
+      - name: Install dependencies and lint code
         run: |
           cd PIF_PAF-front
           pwd
           npm install
+          npm run lint --prefix .
 
-      - name: Run Lint 
-        run: |
-          pwd
-          npm run lint --prefix ./PIF_PAF-front
+      # - name: Run Lint 
+      #   run: |
+      #     cd PIF_PAF-front
+      #     pwd
+          
       
       
     
