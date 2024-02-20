@@ -121,8 +121,9 @@ jobs:
           npm install
           ./node_modules/.bin/ng build --configuration=production --output-path=../volume
 
-          pwd
+          cd ..
           git add .
+          pwd
           git commit -m "Build volumes"
           git push origin main
 
