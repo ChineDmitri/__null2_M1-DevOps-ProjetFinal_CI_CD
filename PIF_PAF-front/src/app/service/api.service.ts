@@ -6,7 +6,7 @@ import { map } from 'rxjs';
   providedIn: 'root',
 })
 export class ApiService {
-  private _apiUrl: string = 'http://localhost:3000/';
+  private _apiUrl = 'http://localhost:3000/';
 
   constructor(private _http: HttpClient) {}
 
@@ -17,15 +17,13 @@ export class ApiService {
   // Tentative lint 5
 
   envoyerInfo(lastname: string, firstname: string): any {
-    return this._http.post(this._apiUrl,
-      { "firstName": firstname, "lastName": lastname }
-    ).pipe(
-      map((response: any) => {
-        if (response.message)
-          return response.message;
-        else
-          return null;
-      })
-    );
+    return this._http
+      .post(this._apiUrl, { firstName: firstname, lastName: lastname })
+      .pipe(
+        map((response: any) => {
+          if (response.message) return response.message;
+          else return null;
+        }),
+      );
   }
 }

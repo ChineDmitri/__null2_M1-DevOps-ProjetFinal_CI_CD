@@ -8,12 +8,11 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrl: './formulaire.component.scss',
 })
 export class FormulaireComponent {
-
   firstname!: string;
   lastname!: string;
 
   message?: string;
-  isLoad: boolean = false;
+  isLoad = false;
 
   constructor(private _apiService: ApiService) {}
 
@@ -21,20 +20,19 @@ export class FormulaireComponent {
     this.message = undefined;
     this.isLoad = true;
 
-   // console.log(`Prénom: ${this.firstname}, Nom: ${this.lastname}`);
+    // console.log(`Prénom: ${this.firstname}, Nom: ${this.lastname}`);
 
-     this._apiService
-       .envoyerInfo(this.firstname, this.lastname).subscribe({
-         next: (result: any): void => {
-           this.isLoad = false;
-           this.message = result;
-         },
-         error: (error: HttpErrorResponse): void => {
-           this.isLoad = false;
+    this._apiService.envoyerInfo(this.firstname, this.lastname).subscribe({
+      next: (result: any): void => {
+        this.isLoad = false;
+        this.message = result;
+      },
+      error: (error: HttpErrorResponse): void => {
+        this.isLoad = false;
 
-           console.log('ERROR !');
-           this.message = error.message;
-         },
-       });
+        console.log('ERROR !');
+        this.message = error.message;
+      },
+    });
   }
 }
