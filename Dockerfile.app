@@ -1,11 +1,12 @@
 FROM node:18
 
-ENV work ./
+# Set environment variable for WORKDIR
+ENV WORK_DIR /app
 
-WORKDIR .${work}
+# Set the working directory
+WORKDIR $WORK_DIR
 
 COPY package.json ./
-
 RUN npm install
 
 COPY . .
