@@ -6,10 +6,11 @@ import serveStatic from 'serve-static';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
   @Get('/info')
   getVersion(): string {
+    console.log('hello')
     return this.appService.getVersion();
   }
 
