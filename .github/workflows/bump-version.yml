@@ -123,11 +123,13 @@ jobs:
           sed -i "s|image: \"create-user-app:.*|image: \"create-user-app:$(node -p "require('./package.json').version")\"|" docker-compose.yml
           cat docker-compose.yml
 
-          # # Commit changes
+          # # Add change
           git add docker-compose.yml
 
+          cd PIF_PAF-front
+          npm install
           ./node_modules/.bin/ng build --configuration=production --output-path=../volume
-          git add /volume
+          git add .
 
           git commit -m "Bump version in docker-compose.yml to $(node -p "require('./package.json').version") + build volumes"
 
