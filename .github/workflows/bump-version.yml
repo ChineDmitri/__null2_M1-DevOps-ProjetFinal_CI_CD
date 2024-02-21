@@ -119,7 +119,7 @@ jobs:
           npm version ${{ env.bump }} -m "Bump version in package.json %s"
 
           docker-compose up -d
-          docker compose exec -T node-js-app sh -c 'while [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/info)" != "200" ]; do sleep 5; done'
+          docker-compose exec -T node-js-app sh -c 'while [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/info)" != "200" ]; do sleep 5; done'
           API_VERSION=$(curl -s http://localhost:3000/info | jq -r '.version')
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
           if [ "$API_VERSION" != "$PACKAGE_VERSION" ]; then
