@@ -5,32 +5,30 @@ on:
     branches:
       - "main"
     types: [closed]
-   
-
 
 jobs:
   hadolint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Set up Docker
-      uses: docker/setup-docker@v2
+      - name: Set up Docker
+        uses: docker/setup-docker@v4
 
-    - name: Build Docker images
-      run: docker-compose build
+      - name: Build Docker images
+        run: docker-compose build
 
-    - name: Install Hadolint
-      run: docker pull hadolint/hadolint
+      - name: Install Hadolint
+        run: docker pull hadolint/hadolint
 
-    - name: Lint Dockerfiles
-      run: docker run --rm -i hadolint/hadolint < Dockerfile.app
+      - name: Lint Dockerfiles
+        run: docker run --rm -i hadolint/hadolint < Dockerfile.app
 
-    - name: Lint Dockerfiles for database
-      run: docker run --rm -i hadolint/hadolint < Dockerfile.bdd
-      
+      - name: Lint Dockerfiles for database
+        run: docker run --rm -i hadolint/hadolint < Dockerfile.bdd
+
   # back-end_test-and-coverage:
   #   runs-on: ubuntu-22.04
 
@@ -70,6 +68,8 @@ jobs:
 
   version-bump:
     runs-on: ubuntu-22.04
+
+    needs: hadolint
 
     steps:
       - name: Checkout repository
@@ -128,27 +128,30 @@ jobs:
 
           # # Commit changes
           git add docker-compose.yml
-          git commit -m "Bump version in docker-compose.yml to $(node -p "require('./package.json').version")"
-          git push origin main
 
-      - name: Build volumes
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-
-
-          cd PIF_PAF-front
-          npm install
           ./node_modules/.bin/ng build --configuration=production --output-path=../volume
+          git add /volume
 
-          cd ..
-          git add .
-          pwd
-          git commit -m "Build volumes"
+          git commit -m "Bump version in docker-compose.yml to $(node -p "require('./package.json').version") + build volumes"
+
           git push origin main
 
           git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
           git push origin "APP_v$(node -p "require('./package.json').version")"
+
+      # - name: Build volumes
+      #   run: |
+      #     git config --global user.email "actions@github.com"
+      #     git config --global user.name "GitHub Actions"
+
+      #     cd PIF_PAF-front
+      #     npm install
+
+      #     cd ..
+      #     git add .
+      #     pwd
+
+      #     git push origin main
 
       # - name: Update Docker Image Version
       #   run: |
@@ -166,7 +169,7 @@ jobs:
       #   run: |
       #     git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
       #     git push origin "APP_v$(node -p "require('./package.json').version")"
-      
+
       # - name: Bump version and update Docker image
       #   run: |
       #     git config --global user.email "actions@github.com"
@@ -194,8 +197,8 @@ jobs:
 
       #     git tag -a "APP_v$(node -p "require('./package.json').version")" -m "App version $(node -p "require('./package.json').version")"
       #     git push origin "APP_v$(node -p "require('./package.json').version")"
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      # env:
+      #   GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       # - name: Push changes
       #   uses: ad-m/github-push-action@v0.7.0
