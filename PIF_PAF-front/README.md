@@ -1,3 +1,8 @@
+Run conaineur from image with volumes
+docker container run --name=fe-dev -p 4000:4200 fe:dev -v /www:/volumes
+
+
+
 # DvfClient
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.7.

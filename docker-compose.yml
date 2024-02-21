@@ -5,7 +5,7 @@ services:
     container_name: "create-user_app"
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: Dockerfile.app
     image: "create-user-app:0.0.17"
     ports:
       - "3000:3000"
@@ -31,7 +31,7 @@ services:
       MYSQL_DATABASE: rdv
       MYSQL_USER: student
       MYSQL_PASSWORD: student
-
+      
 networks:
   create-user-network:
     driver: bridge
