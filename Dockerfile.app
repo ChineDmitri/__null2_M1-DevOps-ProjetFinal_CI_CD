@@ -1,6 +1,8 @@
 FROM node:18
 
-WORKDIR ./app
+ENV work ./
+
+WORKDIR .${work}
 
 COPY package.json ./
 
