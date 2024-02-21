@@ -110,13 +110,22 @@ jobs:
             exit 1
           fi
 
-      - name: Bump version and update Docker image
+      - name: Bump version + check version in docker container from image and after update Docker image
         run: |
           git config --global user.email "actions@github.com"
           git config --global user.name "GitHub Actions"
 
           # Run npm version after ensuring a clean working directory
           npm version ${{ env.bump }} -m "Bump version in package.json %s"
+
+          docker-compose exec -T your_service_name sh -c 'while [ "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/info)" != "200" ]; do sleep 5; done'
+          API_VERSION=$(curl -s http://localhost:3000/info | jq -r '.version')
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if [ "$API_VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "Error: API version ($API_VERSION) does not match package.json version ($PACKAGE_VERSION)"
+            exit 1
+          fi
+
           git push origin main
 
           # # Update Docker image version in docker-compose
